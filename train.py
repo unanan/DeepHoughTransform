@@ -18,7 +18,7 @@ from utils.avgmeter import AverageMeter
 from utils.misc import reverse_mapping, visulize_mapping, get_boundary_point
 
 def train(args):
-    # CONFIGS = yaml.load(open(args.config)) # deprecated
+    # CONFIGS = yaml.load(open(args.config)) # deprecated, please set the configs in parse_args()
 
     # Set device
     if torch.cuda.is_available():
@@ -41,10 +41,10 @@ def train(args):
     #TODO:logging
 
     # Load Dataset
-    trainloader = get_loader(args.train_images, args.train_file,
+    trainloader = get_loader(args.train_gtfile,
                              batch_size=args.batch_size,
                              num_thread=args.num_workers)
-    valloader = get_loader(args.val_images, args.val_file,
+    valloader = get_loader(args.val_gtfile,
                            batch_size=args.batch_size,
                            num_thread=args.num_workers)
 
@@ -56,7 +56,6 @@ def train(args):
 
     # Optimizer
     optimizer = optim.Adam(model.parameters())
-
 
     # Loss
     criterion = torch.nn.CrossEntropyLoss()
@@ -71,9 +70,9 @@ def train(args):
             iter += 1
             img_tensor, gt_tensor = batch
             optimizer.zero_grad()
+
             # Forwarding
             preds = model(img_tensor)
-
 
             # Calculate Loss
             loss = criterion(preds, gt_tensor)
@@ -82,7 +81,7 @@ def train(args):
             losses.update(loss.item(), args.batch_size)
 
             if iter%args.show_interval==0:
-                logging.info(f"Training [{epoch}/{iter}]: Loss:{loss.item()} Time:{time.time()-start:.1f}s")
+                logging.info(f"Training [{epoch}/{args.max_epoch}][{iter}] Loss:{losses.avg} Time:{time.time()-start:.1f}s")
 
             if iter%args.val_interval==0:
                 pass
@@ -158,10 +157,8 @@ def parse_args():
 
 
     # Datasets
-    parser.add_argument('--train_images', default="", type=str, help='')
-    parser.add_argument('--val_images', default="", type=str, help='')
-    parser.add_argument('--train_file', default="", type=str, help='')
-    parser.add_argument('--val_file', default="", type=str, help='')
+    parser.add_argument('--train_gtfile', default="test/gt.txt", type=str, help='')
+    parser.add_argument('--val_gtfile', default="", type=str, help='')
 
 
     # Miscs
