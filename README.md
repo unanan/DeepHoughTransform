@@ -24,7 +24,7 @@ Add training codes into Hanqer/deep-hough-transform.
 所以测试了一下如果直接输入一个二值化的图，上面只有一根直线，输出的结果上确实有一个“能量最大”的点，这个点可以作为学习的对象；
 但我的工作其实是想语义性的识别圆，如果输入的是圆的二值化的图，输出的结果图就会是：
 
-![](data/circle.png)
+![data/circle.png](data/circle.png)
 
 这样的图片没法学啊。后来想了一下因为映射方法固定了，作者原始的课题就是做直线，那就是映射到Hough直线变换后的空间，这个空间不是给圆设计的。
 因此如果我要进行类似的圆的检测，必须自己设计一个参数空间，然后自己设计一个c_dhct(deep hough circle transform)嵌到网络中进行训练。
