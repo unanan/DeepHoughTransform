@@ -1,12 +1,12 @@
 # DeepHoughTransform
 ![](https://img.shields.io/badge/DEVELOP-NotFinished-red)
 
-Add training codes into Hanqer/deep-hough-transform.
+~~Add training codes into Hanqer/deep-hough-transform.~~
 
 ### Brief 
-- Since there are no training codes in the original repo, I decided to add some training codes.
+- ~~Since there are no training codes in the original repo, I decided to add some training codes.~~
 - I considered to use the architecture of deep-hough-transform to train on my own task. The task is not actually similar to the task of `Semantic Line Detection`.
-- This repo is just an attempt of writing the training codes. No plan to open my dataset or evaluate the model.
+- ~~This repo is just an attempt of writing the training codes. No plan to open my dataset or evaluate the model.~~
 - _(In Chinese):_ 这条用中文再啰嗦叙述一下，因为我个人目前的工作想要考虑看一下这个deep hough transform的方法能不能用在我的数据集上，但是他这个没有训练代码啊，自己试着写一下。
 - 多说一句，看代码的时候我发现trainset的设置（数据读取、transform）作者闭源了，另外label和loss计算也都闭源了，所以我考虑这两个点是有比较重点的tricks。
 
@@ -29,6 +29,7 @@ Add training codes into Hanqer/deep-hough-transform.
 这样的图片没法学啊。后来想了一下因为映射方法固定了，作者原始的课题就是做直线，那就是映射到Hough直线变换后的空间，这个空间不是给圆设计的。
 因此如果我要进行类似的圆的检测，必须自己设计一个参数空间，然后自己设计一个c_dhct(deep hough circle transform)嵌到网络中进行训练。
 （所以这个项目的后续开发可能不会有了，目前已经写了的可以po出来看看有没有人需要的）
+P.S.原文说可以扩展做arbitrary shapes的课题，其实还是有局限性吧……
 
 ### TODOs
 - Not finished yet
